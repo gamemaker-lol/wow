@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Counter Website</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
+            background-color: #1a1a1a;
+            overflow: hidden; /* Removes scrollbars */
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(30, 30, 30, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            color: #fff; /* Text color for dark mode */
+        }
+        .text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        .counter {
+            font-size: 48px;
+            font-weight: bold;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 0.5s;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: #ccc; /* Lighter particles for dark mode */
+            border-radius: 50%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="text"><b>Swear</b> and <i>slur</i> counter:</p>
+        <h1 class="counter">3</h1>
+    </div>
+    <script>
+        let particles = [];
+
+        function createParticles(num) {
+            for (let i = 0; i < num; i++) {
+                let particle = document.createElement('div');
+                particle.className = 'particle';
+                document.body.appendChild(particle);
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.top = Math.random() * window.innerHeight + 'px';
+                particle.vx = (Math.random() - 0.5) * 0.5;
+                particle.vy = (Math.random() - 0.5) * 0.5;
+                particles.push(particle);
+            }
+        }
+
+        function animate() {
+            for (let particle of particles) {
+                let x = parseFloat(particle.style.left);
+                let y = parseFloat(particle.style.top);
+                x += particle.vx;
+                y += particle.vy;
+                if (x < 0) x = window.innerWidth;
+                else if (x > window.innerWidth) x = 0;
+                if (y < 0) y = window.innerHeight;
+                else if (y > window.innerHeight) y = 0;
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+            }
+            requestAnimationFrame(animate);
+        }
+
+        createParticles(100);
+        animate();
+    </script>
+</body>
+</html>
