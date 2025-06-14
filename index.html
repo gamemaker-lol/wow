@@ -110,23 +110,20 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   overlay.textContent = "Click to see.";
 
-  // Click handler: remove overlay and load/play audio
+  // Click handler: remove overlay and load/play looping audio
   overlay.addEventListener("click", function() {
     // Remove overlay
     if (overlay.parentNode) {
       overlay.parentNode.removeChild(overlay);
     }
-    // Load and play audio
+    // Load, loop, and play audio
     var audio = new Audio();
     audio.src = "YOUR_AUDIO_URL_HERE"; // <-- replace with your audio link
+    audio.loop = true;
     audio.load();
-    // Optionally autoplay; note: some browsers block autoplay without user interaction,
-    // but since this is in a click handler, it should be allowed.
     audio.play().catch(function(err){
       console.warn("Audio play was interrupted or blocked:", err);
     });
-    // If you prefer keeping the audio element in DOM:
-    // document.body.appendChild(audio); // but not necessary for Audio() constructor
   });
 
   // Add overlay to document
