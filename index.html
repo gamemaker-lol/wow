@@ -88,5 +88,50 @@
         createParticles(100);
         animate();
     </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Create overlay
+  var overlay = document.createElement("div");
+  Object.assign(overlay.style, {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "black",
+    color: "white",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    fontSize: "2em",
+    cursor: "pointer",
+    zIndex: "9999"
+  });
+  overlay.textContent = "Click to see.";
+
+  // Click handler: remove overlay and load/play audio
+  overlay.addEventListener("click", function() {
+    // Remove overlay
+    if (overlay.parentNode) {
+      overlay.parentNode.removeChild(overlay);
+    }
+    // Load and play audio
+    var audio = new Audio();
+    audio.src = "YOUR_AUDIO_URL_HERE"; // <-- replace with your audio link
+    audio.load();
+    // Optionally autoplay; note: some browsers block autoplay without user interaction,
+    // but since this is in a click handler, it should be allowed.
+    audio.play().catch(function(err){
+      console.warn("Audio play was interrupted or blocked:", err);
+    });
+    // If you prefer keeping the audio element in DOM:
+    // document.body.appendChild(audio); // but not necessary for Audio() constructor
+  });
+
+  // Add overlay to document
+  document.body.appendChild(overlay);
+});
+</script>
 </body>
 </html>
